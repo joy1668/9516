@@ -9,9 +9,17 @@
     --admin-border: #e5e7eb;
     --admin-text: #1f2937;
     --admin-muted: #6b7280;
-    --admin-primary: #2f9e6d;
-    --admin-primary-hover: #25845b;
+    --admin-primary: #2563eb;
+    --admin-primary-hover: #1d4ed8;
+    --admin-primary-active: #1e40af;
+    --admin-primary-soft: #eff6ff;
+    --admin-secondary-text: #334155;
+    --admin-secondary-hover: #f8fafc;
     --admin-danger: #dc2626;
+    --admin-danger-hover: #b91c1c;
+    --admin-danger-soft: #fff1f2;
+    --admin-danger-border: #fecaca;
+    --admin-ring: rgba(37, 99, 235, .24);
     --admin-side: #111827;
     --admin-side-soft: #1f2937;
     --admin-radius: 8px;
@@ -251,7 +259,9 @@ a:hover {
 }
 
 .version-actions button:disabled {
-    background: #b7bdb1;
+    background: #e2e8f0;
+    color: #94a3b8;
+    border-color: #e2e8f0;
     cursor: not-allowed;
 }
 
@@ -310,10 +320,6 @@ a:hover {
     align-items: center;
 }
 
-.theme-dashboard-actions .secondary {
-    background: #475569;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -346,24 +352,31 @@ tr:hover td {
 
 .btn,
 button {
-    display: inline-block;
-    background: var(--admin-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-hover));
     color: #fff;
-    border: 0;
+    border: 1px solid transparent;
     padding: 9px 14px;
     border-radius: 7px;
     cursor: pointer;
     min-height: 40px;
     line-height: 1.3;
+    font: inherit;
+    font-weight: 600;
+    text-align: center;
     touch-action: manipulation;
-    transition: background .16s ease, transform .16s ease, opacity .16s ease;
-    box-shadow: 0 8px 18px rgba(47, 158, 109, .18);
+    transition: background .16s ease, border-color .16s ease, box-shadow .16s ease, color .16s ease, transform .16s ease, opacity .16s ease;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, .18);
 }
 
 .btn:hover,
 button:hover {
-    background: var(--admin-primary-hover);
+    background: linear-gradient(135deg, var(--admin-primary-hover), var(--admin-primary-active));
     color: #fff;
+    box-shadow: 0 10px 22px rgba(37, 99, 235, .22);
 }
 
 .btn:active,
@@ -374,14 +387,83 @@ button:active {
 .btn.secondary,
 button.secondary,
 .secondary {
-    background: #475569;
-    box-shadow: 0 8px 18px rgba(71, 85, 105, .16);
+    background: #fff;
+    color: var(--admin-secondary-text);
+    border-color: #cbd5e1;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, .04);
+}
+
+.btn.secondary:hover,
+button.secondary:hover,
+.secondary:hover {
+    background: var(--admin-secondary-hover);
+    color: #0f172a;
+    border-color: #94a3b8;
+    box-shadow: 0 6px 14px rgba(15, 23, 42, .08);
+}
+
+.inline button {
+    background: #fff;
+    color: var(--admin-secondary-text);
+    border-color: #cbd5e1;
+    box-shadow: none;
+}
+
+.inline button:hover {
+    background: var(--admin-secondary-hover);
+    color: #0f172a;
+    border-color: #94a3b8;
+    box-shadow: 0 5px 12px rgba(15, 23, 42, .07);
 }
 
 button[name="op"][value="delete"],
-.inline button {
+button[name="op"][value="purge"],
+button[name="op"][value="delete_remote"],
+button[name="op"][value="delete_log"],
+button[name="op"][value="delete_task"],
+button[name="op"][value="delete_url"],
+button[name="op"][value="clear_logs"],
+.inline:has(input[name="op"][value="delete"]) button,
+.inline:has(input[name="op"][value="purge"]) button,
+.inline:has(input[name="op"][value="delete_remote"]) button,
+.inline:has(input[name="op"][value="delete_log"]) button,
+.inline:has(input[name="op"][value="delete_task"]) button,
+.inline:has(input[name="op"][value="delete_url"]) button {
+    background: var(--admin-danger-soft);
+    color: var(--admin-danger);
+    border-color: var(--admin-danger-border);
+    box-shadow: none;
+}
+
+button[name="op"][value="delete"]:hover,
+button[name="op"][value="purge"]:hover,
+button[name="op"][value="delete_remote"]:hover,
+button[name="op"][value="delete_log"]:hover,
+button[name="op"][value="delete_task"]:hover,
+button[name="op"][value="delete_url"]:hover,
+button[name="op"][value="clear_logs"]:hover,
+.inline:has(input[name="op"][value="delete"]) button:hover,
+.inline:has(input[name="op"][value="purge"]) button:hover,
+.inline:has(input[name="op"][value="delete_remote"]) button:hover,
+.inline:has(input[name="op"][value="delete_log"]) button:hover,
+.inline:has(input[name="op"][value="delete_task"]) button:hover,
+.inline:has(input[name="op"][value="delete_url"]) button:hover {
     background: var(--admin-danger);
-    box-shadow: 0 8px 18px rgba(220, 38, 38, .14);
+    color: #fff;
+    border-color: var(--admin-danger);
+    box-shadow: 0 8px 18px rgba(220, 38, 38, .16);
+}
+
+button:disabled,
+.btn:disabled,
+.btn[disabled] {
+    background: #e2e8f0;
+    color: #94a3b8;
+    border-color: #e2e8f0;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 1;
+    transform: none;
 }
 
 input,
@@ -403,7 +485,7 @@ select:focus,
 button:focus-visible,
 .btn:focus-visible,
 a:focus-visible {
-    outline: 3px solid rgba(47, 158, 109, .25);
+    outline: 3px solid var(--admin-ring);
     outline-offset: 2px;
     border-color: var(--admin-primary);
 }
@@ -496,6 +578,64 @@ textarea {
 
 .link-admin-table input {
     min-width: 180px;
+}
+
+.link-order-cell {
+    min-width: 190px;
+}
+
+.link-order-number {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+    border-radius: 7px;
+    background: #eef2f7;
+    color: #334155;
+    font-weight: 700;
+}
+
+.link-move-actions,
+.link-row-actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    vertical-align: middle;
+}
+
+.link-move-actions button,
+.link-row-actions button {
+    min-height: 32px;
+    background: #fff;
+    color: var(--admin-secondary-text);
+    border-color: #cbd5e1;
+    padding: 5px 9px;
+    box-shadow: none;
+}
+
+.link-move-actions button:hover,
+.link-row-actions button:hover {
+    background: var(--admin-secondary-hover);
+    color: #0f172a;
+    border-color: #94a3b8;
+}
+
+.link-move-actions button:disabled {
+    opacity: .42;
+    cursor: not-allowed;
+}
+
+.link-row-actions button:last-child {
+    background: var(--admin-danger-soft);
+    border-color: var(--admin-danger-border);
+    color: var(--admin-danger);
+}
+
+.link-row-actions button:last-child:hover {
+    background: var(--admin-danger);
+    border-color: var(--admin-danger);
+    color: #fff;
 }
 
 .admin-login,
@@ -630,14 +770,23 @@ body:has(.admin-login),
 
 .password-eye {
     height: 42px;
-    border: 1px solid #d8d8d8;
+    min-height: 42px;
     background: #fff;
-    cursor: pointer;
+    color: var(--admin-secondary-text);
+    border: 1px solid #cbd5e1;
+    box-shadow: none;
 }
 
 .password-eye.is-open {
-    border-color: #6bc30d;
-    color: #6bc30d;
+    background: var(--admin-primary-soft);
+    border-color: #bfdbfe;
+    color: var(--admin-primary);
+}
+
+.password-eye:hover {
+    background: var(--admin-secondary-hover);
+    color: #0f172a;
+    border-color: #94a3b8;
 }
 
 .rich-paste {
@@ -894,6 +1043,21 @@ body:has(.admin-login),
     td textarea,
     td select {
         min-width: 130px;
+    }
+
+    .link-admin-table tr {
+        min-width: 860px;
+    }
+
+    .link-order-cell {
+        min-width: 210px;
+    }
+
+    .link-move-actions,
+    .link-row-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
     }
 
     .admin-form {
