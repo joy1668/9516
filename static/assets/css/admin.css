@@ -146,6 +146,26 @@ a:hover {
     word-break: break-word;
 }
 
+.admin-muted {
+    color: var(--admin-muted);
+}
+
+.admin-row-actions {
+    display: inline-grid;
+    grid-template-columns: 52px 36px auto;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.admin-row-actions .inline {
+    margin: 0;
+}
+
+.admin-action-open {
+    display: inline-block;
+}
+
 .cards {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
